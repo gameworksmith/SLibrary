@@ -1,12 +1,11 @@
-﻿using System;
+﻿using SLibrary.Tweener;
+using UnityEditor;
+
 #if USE_DOTWEEN
 using DG.Tweening;
 #endif
-using SLibrary.UITweener;
-using UnityEditor;
-using UnityEngine;
 
-namespace SLibrary.Editor.UITweener.Editor
+namespace SLibrary.Editor.Tweener
 {
     [CustomEditor(typeof(BaseTweener))]
     public class BaseTweenerEditor : UnityEditor.Editor

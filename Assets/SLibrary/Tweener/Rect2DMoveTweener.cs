@@ -2,24 +2,24 @@
 
 namespace SLibrary.Tweener
 {
-    public class MoveTweener : BaseTweener
+    public class Rect2DMoveTweener : BaseTweener
     {
         [Header("初始位置")]
-        public Vector3 StartPos;
+        public Vector2 StartPos;
         [Header("结束位置")]
-        public Vector3 EndPos;
+        public Vector2 EndPos;
 
-        private Transform _transform;
+        private RectTransform _transform;
         protected override void Init()
         {
             base.Init();
-            _transform = Target.GetComponent<Transform>();
+            _transform = Target.GetComponent<RectTransform>();
         }
 
 #if USE_DOTWEEN
         protected override void ProgressSetter(float pnewvalue)
         {
-            _transform.position = StartPos + (EndPos - StartPos) * pnewvalue;
+            _transform.anchoredPosition = StartPos + (EndPos - StartPos) * pnewvalue;
         }
 #endif
     }

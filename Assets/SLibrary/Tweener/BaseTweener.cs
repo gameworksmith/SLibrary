@@ -1,10 +1,9 @@
-﻿using System;
-#if USE_DOTWEEN
-using DG.Tweening;
-#endif
+﻿using DG.Tweening;
 using UnityEngine;
+#if USE_DOTWEEN
+#endif
 
-namespace SLibrary.UITweener
+namespace SLibrary.Tweener
 {
     /// <summary>
     /// 

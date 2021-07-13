@@ -1,8 +1,7 @@
-﻿using SLibrary.Editor.UITweener.Editor;
-using SLibrary.Tweener;
+﻿using SLibrary.Tweener;
 using UnityEditor;
 
-namespace SLibrary.Editor.Tweener.Editor
+namespace SLibrary.Editor.Tweener
 {
     [CustomEditor(typeof(MoveTweener))]
     public class MoveTweenerEditor : BaseTweenerEditor

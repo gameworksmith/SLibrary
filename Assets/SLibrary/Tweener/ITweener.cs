@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SLibrary.UITweener
+namespace SLibrary.Tweener
 {
     public interface ITweener
     {
