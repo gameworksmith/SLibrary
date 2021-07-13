@@ -2,10 +2,32 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace SLibrary
+namespace SLibrary.Util
 {
     public class StaticUtil
     {
+        
+        public static string GetGuid()
+        {
+            var guid = System.Guid.NewGuid();
+            return guid.ToString();
+        }
+        
+        /// <summary>
+        /// 是否是编辑器
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsInEditor()
+        {
+            return Application.isEditor;
+        }
+        
+        /// <summary>
+        /// 获取或添加组件
+        /// </summary>
+        /// <param name="go"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static T GetOrAddComponent<T>(GameObject go) where T : Component
         {
             if (ReferenceEquals(go, null))
@@ -22,6 +44,16 @@ namespace SLibrary
             return ret;
         }
         
+        /// <summary>
+        /// 直接附加碰撞检测器
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="onClick"></param>
+        /// <param name="onBeginDrag"></param>
+        /// <param name="onDrag"></param>
+        /// <param name="onEndDrag"></param>
+        /// <param name="onDrop"></param>
+        /// <returns></returns>
         public static EventTrigger AttachEventTriggers(GameObject go, UnityAction<BaseEventData> onClick = null, UnityAction<BaseEventData> onBeginDrag = null,
             UnityAction<BaseEventData> onDrag = null, UnityAction<BaseEventData> onEndDrag = null,UnityAction<BaseEventData> onDrop = null)
         {

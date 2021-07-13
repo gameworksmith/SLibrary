@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SLibrary
+namespace SLibrary.Util
 {
     public class OffsetFollower : MonoBehaviour
     {
