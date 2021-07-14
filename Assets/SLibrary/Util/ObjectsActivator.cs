@@ -69,7 +69,7 @@ namespace SLibrary.Util
                 bool allActive = true;
                 foreach (TimeObject timeObject in TimeObjects)
                 {
-                    if (timeObject.Target == null)
+                    if (ReferenceEquals(timeObject.Target, null))
                     {
                         continue;
                     }
