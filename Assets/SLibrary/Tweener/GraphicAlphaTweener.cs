@@ -7,7 +7,7 @@ namespace SLibrary.Tweener{
     {
         [Header("初始alpha")]
         public float StartAlpha;
-        [Header("结束位置")]
+        [Header("结束alpha")]
         public float EndAlpha;
 
         private Graphic _graphics;
