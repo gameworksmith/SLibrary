@@ -46,7 +46,7 @@ namespace SLibrary.Tweener
         [HideInInspector]
         [Header("曲线类型")]
         [SerializeField]
-        public int easeType;
+        public int easeType = 1;
         
         [Header("是否开启即播放")]
         [SerializeField]
