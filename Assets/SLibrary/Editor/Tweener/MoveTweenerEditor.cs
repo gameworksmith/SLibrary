@@ -10,10 +10,15 @@ namespace SLibrary.Editor.Tweener
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            if (GUILayout.Button("复制当前位置"))
+            if (GUILayout.Button("复制当前位置到初始"))
             {
                 MoveTweener tweener = target as MoveTweener;
                 tweener.StartPos = tweener.transform.position;
+            }
+            
+            if (GUILayout.Button("复制当前位置到结束"))
+            {
+                MoveTweener tweener = target as MoveTweener;
                 tweener.EndPos = tweener.transform.position;
             }
             

@@ -10,10 +10,15 @@ namespace SLibrary.Editor.Tweener
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            if (GUILayout.Button("复制当前缩放"))
+            if (GUILayout.Button("复制当前缩放到初始"))
             {
                 ScaleTweener tweener = target as ScaleTweener;
                 tweener.StartScale = tweener.transform.localScale;
+            }
+            
+            if (GUILayout.Button("复制当前缩放到结束"))
+            {
+                ScaleTweener tweener = target as ScaleTweener;
                 tweener.EndScale = tweener.transform.localScale;
             }
             

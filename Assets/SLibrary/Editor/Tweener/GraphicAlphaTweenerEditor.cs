@@ -17,11 +17,18 @@ namespace SLibrary.Editor.Tweener
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            if (GUILayout.Button("复制当前alpha"))
+            if (GUILayout.Button("复制当前alpha到初始"))
             {
                 GraphicAlphaTweener tweener = target as GraphicAlphaTweener;
                 var graphics = tweener.GetComponent<Graphic>();
                 tweener.StartAlpha = graphics.color.a;
+            }
+            
+            if (GUILayout.Button("复制当前alpha到结束"))
+            {
+                GraphicAlphaTweener tweener = target as GraphicAlphaTweener;
+                var graphics = tweener.GetComponent<Graphic>();
+                tweener.EndAlpha = graphics.color.a;
             }
 
             if (GUILayout.Button("设置为初始alpha"))
