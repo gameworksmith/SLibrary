@@ -24,9 +24,9 @@ namespace SLibrary.Tweener
         [SerializeField]
         private GameObject target;
         
-        [Header("时长")]
+        [Header("时长（秒）")]
         [SerializeField]
-        public float duration;
+        public float duration = 1;
         
         
         [Header("忽略时间常数")]
@@ -36,6 +36,10 @@ namespace SLibrary.Tweener
         [Header("播放速率")]
         [SerializeField]
         private float timeScale = 1;
+        
+        [Header("初始延迟（秒）")]
+        [SerializeField]
+        private float startDelay = 0;
         
         [Header("重复播放次数")]
         public int loopTimes = 1;
@@ -95,6 +99,7 @@ namespace SLibrary.Tweener
             ret.SetLoops(loopTimes);
             ret.timeScale = timeScale;
             ret.OnUpdate(OnUpdate);
+            ret.SetDelay(startDelay);
             if (IgnoreTimeScale)
             {
                 ret.SetUpdate(true);
