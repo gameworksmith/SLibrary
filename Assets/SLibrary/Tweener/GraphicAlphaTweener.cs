@@ -15,7 +15,7 @@ namespace SLibrary.Tweener{
         protected override void Init()
         {
             base.Init();
-            _graphics = Target.GetComponent<MaskableGraphic>();
+            _graphics = Target.GetComponent<Graphic>();
         }
 
 #if USE_DOTWEEN
