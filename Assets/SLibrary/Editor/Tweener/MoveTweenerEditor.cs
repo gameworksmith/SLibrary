@@ -1,5 +1,6 @@
 ﻿using SLibrary.Tweener;
 using UnityEditor;
+using UnityEngine;
 
 namespace SLibrary.Editor.Tweener
 {
@@ -9,6 +10,12 @@ namespace SLibrary.Editor.Tweener
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+            if (GUILayout.Button("设为当前位置"))
+            {
+                MoveTweener tweener = target as MoveTweener;
+                tweener.StartPos = tweener.transform.position;
+                tweener.EndPos = tweener.transform.position;
+            }
         }
     }
 }
