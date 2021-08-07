@@ -59,10 +59,12 @@ public class AliyunOSSUploader : MonoBehaviour
         }
         catch (OssException e) {
             Debug.Log("字符串数据上传错误："+ e);
+            onComplete?.Invoke(null);                   
         }
         catch (Exception e)
         {
             Debug.Log("字符串数据上传错误：" + e);
+            onComplete?.Invoke(null);                   
         }
 
     }
