@@ -1,0 +1,15 @@
+{
+    "name": "SLib.Tweener.Editor",
+    "references": [
+        "GUID:c826cb85919575541b8cb0c4ba8671ec"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
