@@ -37,7 +37,6 @@ public class AliyunOSSUploader : MonoBehaviour
     {
         
         OssClient client = new OssClient(endPoint, key, secret);
-        
         try {
             
             using (Stream stream = new MemoryStream(data))
