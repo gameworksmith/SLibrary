@@ -10,7 +10,7 @@ namespace SLibrary.Network
         public const int METHOD_PUT = 3;
         public const int METHOD_DELETE = 4;
        
-        public void SendHttpRequest(string url, int method, string data = null, Tuple<string, string>[] headers = null, System.Action<UnityWebRequest> onComplete = null, DownloadHandler handler = null,  int timeout = 10)
+        public static void SendHttpRequest(string url, int method, string data = null, Tuple<string, string>[] headers = null, System.Action<UnityWebRequest> onComplete = null, DownloadHandler handler = null,  int timeout = 10)
         {
             UnityWebRequest request = null;
             if (method == METHOD_GET)
