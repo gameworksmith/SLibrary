@@ -15,6 +15,7 @@ namespace Examples.Network
         public Transform Root;
         public GameObject Template;
         public Button TestButton;
+        public Button StopButton;
         private string _content;
 
         private void Awake()
@@ -25,6 +26,10 @@ namespace Examples.Network
                 _client.AsyncSend(System.Text.Encoding.UTF8.GetBytes("ok"));
             }, OnDataReceived);
             TestButton.onClick.AddListener(OnClick);
+            StopButton.onClick.AddListener(() =>
+            {
+                _client?.Stop();
+            });
         }
 
         private void OnClick()
