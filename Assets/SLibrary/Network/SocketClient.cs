@@ -80,6 +80,12 @@ namespace SLibrary.Network
             }
         }
 
+        public void Stop()
+        {
+            _socket.Disconnect(false);
+            _socket.Dispose();
+        }
+
         public void AsyncSend(byte[] data)
         {
             try  

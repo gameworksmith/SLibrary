@@ -37,8 +37,10 @@ namespace Examples.Network
             byte[] result = new byte[length];
             Array.Copy(obj, result, length);
             _content = System.Text.Encoding.UTF8.GetString(result);
-            
+        }
 
+        private void OnDestroy()
+        {
         }
 
         private void Update()
