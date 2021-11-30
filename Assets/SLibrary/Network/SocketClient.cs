@@ -15,7 +15,9 @@ namespace SLibrary.Network
         private System.Action<byte[], int> _onReceive;
         private System.Action<string, int> _onFirstConnected;
         private byte[] _buffer;
+        private byte[] _totalBuffer;
         private object _state;
+        private bool _reading;
 
         public static SocketClient CreateClient(string ip, int port, System.Action<string, int> onFistConnected = null,
             System.Action<byte[], int> onReceive = null)
