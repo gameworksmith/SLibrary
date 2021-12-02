@@ -32,10 +32,16 @@ namespace SLibrary.SimpleEntity {
             GameLoop = new UniqueGameLoop();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             GameLoop.Update();
         }
+
+        protected void LateUpdate()
+        {
+            GameLoop.LateUpdate();
+        }
+
 
         // 跨池发送信息
         public void SendToPool(int poolId, int actionId, EntityParam param = null, bool autoRelease = true)

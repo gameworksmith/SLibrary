@@ -14,6 +14,7 @@ namespace SLibrary.Core {
         private static int _index = 0;//队列第几次执行
         public const int MAX_UPDATE_COUNT = 20;//最多执行20次update，如果超过这个数，在下一帧执行
         private const float MAX_ALLOC_TIME = 0.03f;
+        private static List<System.Action> _lateUpdateListeners = new List<Action>();
 
         public void AddListener(System.Action func, int frequence)
         {
@@ -32,6 +33,17 @@ namespace SLibrary.Core {
             _listeners.Remove(func);
         }
 
+        public void AddLateListener(Action action)
+        {
+            _lateUpdateListeners.Add(action);
+        }
+
+        public void RemoveLateListener(Action action)
+        {
+            _lateUpdateListeners.Remove(action);
+        }
+
+
         public static void RemoveAll()
         {
             _listeners.Clear();
@@ -41,7 +53,14 @@ namespace SLibrary.Core {
 
         public void Update() {
             ExecuteQueueUpdateFunctions();
+        }
 
+        public void LateUpdate()
+        {
+            for (int i = _lateUpdateListeners.Count - 1; i >= 0; i--)
+            {
+                _lateUpdateListeners[i]?.Invoke();
+            }
         }
 
 

@@ -37,6 +37,7 @@ namespace SLibrary.SimpleEntity {
         public void Register () {
             PoolInstance.Register(this);
             GameLoop.AddListener(OnUpdate, 1);
+            GameLoop.AddLateListener(OnLateUpdate);
         }
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace SLibrary.SimpleEntity {
             _receiveActions.Clear();
             PoolInstance?.UnRegister(this);
             GameLoop.RemoveListener(OnUpdate);
+            GameLoop.RemoveLateListener(OnLateUpdate);
             OnRemove();
         }
 
@@ -96,7 +98,7 @@ namespace SLibrary.SimpleEntity {
             
         }
         
-        protected virtual void LateUpdate() {
+        protected virtual void OnLateUpdate() {
             
         }
 
