@@ -41,6 +41,33 @@ namespace SLibrary.Components
         {
         }
 
+        public float Width
+        {
+            get => width;
+            set
+            {
+                width = value;
+                OnValidate();
+            }
+        }
+
+        public float Height
+        {
+            get => height;
+            set
+            {
+                height = value;
+                OnValidate();
+            }
+        }
+
+        public void SetSize(float w, float h)
+        {
+            width = w;
+            height = h;
+            OnValidate();
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
