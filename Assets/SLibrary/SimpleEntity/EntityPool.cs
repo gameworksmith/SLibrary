@@ -64,7 +64,6 @@ namespace SLibrary.SimpleEntity {
 
         public void RemovePool(int poolId)
         {
-            EntityPool pool;
             _pools.Remove(poolId);
         }
 
