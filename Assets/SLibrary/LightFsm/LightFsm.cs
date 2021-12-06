@@ -5,15 +5,19 @@ namespace SLibrary.LightFsm
 {
     public class LightFsm : IFsm
     {
-        public LightFsm(int defaultState = -1)
+        public LightFsm(int defaultState = -1, System.Action<float> beforeUpdate = null, System.Action<float> afterUpdate = null)
         {
             CurrentState = defaultState;
+            beforeUpdateCallback = beforeUpdate;
+            afterUpdateCallback = afterUpdate;
         }
 
         private readonly Dictionary<int, Tuple<System.Action<int>, System.Action<int>, System.Action<float>>> _actions =
             new Dictionary<int, Tuple<Action<int>, Action<int>, Action<float>>>();
 
         public int CurrentState { get; private set; }
+        private System.Action<float> beforeUpdateCallback;
+        private System.Action<float> afterUpdateCallback;
 
         public bool AddState(int state, Action<int> onEnter, Action<int> onExit, Action<float> onUpdate)
         {
@@ -71,13 +75,17 @@ namespace SLibrary.LightFsm
             return true;
         }
 
-        public void Update(float time, Action<float> beforeUpdate, Action<float> afterUpdate)
+        /// <summary>
+        /// 不要在调用频率非常高的方法上使用委托传参，会造成大量gc
+        /// </summary>
+        /// <param name="time"></param>
+        public void Update(float time)
         {
             if (_actions.TryGetValue(CurrentState, out var actions))
             {
-                beforeUpdate?.Invoke(time);
+                beforeUpdateCallback?.Invoke(time);
                 actions.Item3?.Invoke(time);
-                afterUpdate?.Invoke(time);
+                afterUpdateCallback?.Invoke(time);
             }
         }
     }
