@@ -1,4 +1,6 @@
-﻿using SLibrary.Tweener;
+﻿#if UNITY_EDITOR
+
+using SLibrary.Tweener;
 using UnityEditor;
 
 #if USE_DOTWEEN
@@ -52,3 +54,4 @@ namespace SLibrary.Editor.Tweener
 #endif
     }
 }
+#endif

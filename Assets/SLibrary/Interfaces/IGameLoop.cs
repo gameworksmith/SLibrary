@@ -9,7 +9,6 @@
         void AddLateListener(System.Action action);
         void RemoveLateListener(System.Action action);
         
-
         void Update();
 
         void LateUpdate();

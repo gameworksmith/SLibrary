@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Examples/Components/Examples01_SimpleSpriteRender.unity
+    guid: badb214cdf5dd0e4ea9bf9cf909d5aef
   m_configObjects: {}
