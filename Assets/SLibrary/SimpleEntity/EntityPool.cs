@@ -78,6 +78,27 @@ namespace SLibrary.SimpleEntity {
             instance.SelfInit(param);
             return instance;
         }
+
+        public static bool RegisterExistEntity<T>(T instance, int poolId, GameObject owner = null, object param = null) where  T:EntityBase
+        {
+
+            try
+            {
+                var pool = Instance.GetPool(poolId);
+                instance.Owner = owner;
+                instance.PoolInstance = pool;
+                instance.GameLoop = Instance.GameLoop;
+                instance.Register();
+                instance.SelfInit(param);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("registerError");
+                return false;
+            }
+            return true;
+
+        }
     }
     public class EntityPool : IEntityPool {
 

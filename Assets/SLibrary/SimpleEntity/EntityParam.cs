@@ -115,6 +115,14 @@ namespace SLibrary.SimpleEntity
             return _objs.TryGetValue(key, out var result) ? result : null;
         }
 
+        public bool HasKey(string key)
+        {
+            return _longs.ContainsKey(key) || _enums.ContainsKey(key) || _floats.ContainsKey(key) ||
+                   _strs.ContainsKey(key)
+                   || _colors.ContainsKey(key) || _bools.ContainsKey(key) || _vectors.ContainsKey(key) ||
+                   _objs.ContainsKey(key);
+        }
+
         public void Release()
         {
             _longs.Clear();
