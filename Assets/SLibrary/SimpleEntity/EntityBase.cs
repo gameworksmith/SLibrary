@@ -58,7 +58,7 @@ namespace SLibrary.SimpleEntity {
         /// <param name="param">事件参数</param>
         /// <param name="autoRelease"></param>
         public void Send (int actionId, EntityParam param = null, bool autoRelease = true) {
-            // LogManager.Log($"{actionId} 消息传递");
+            // Debug.Log($"{actionId} 消息传递");
             PoolInstance.Deal(actionId, param, autoRelease);
         }
 

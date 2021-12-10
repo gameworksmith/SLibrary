@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SLibrary.Network
 {
-    public class SocketClient
+    public class SimpleSocketClient
     {
         public const int BUFFER_SIZE = 1024;
 
@@ -19,10 +19,10 @@ namespace SLibrary.Network
         private object _state;
         private bool _reading;
 
-        public static SocketClient CreateClient(string ip, int port, System.Action<string, int> onFistConnected = null,
+        public static SimpleSocketClient CreateClient(string ip, int port, System.Action<string, int> onFistConnected = null,
             System.Action<byte[], int> onReceive = null)
         {
-            SocketClient client = new SocketClient();
+            SimpleSocketClient client = new SimpleSocketClient();
             client.Init(ip, port, onFistConnected, onReceive);
 
             return client;

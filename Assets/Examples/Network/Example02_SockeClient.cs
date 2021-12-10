@@ -10,7 +10,7 @@ namespace Examples.Network
     {
         public string ip;
         public int port;
-        private SocketClient _client;
+        private SimpleSocketClient _client;
 
         public Transform Root;
         public GameObject Template;
@@ -20,7 +20,7 @@ namespace Examples.Network
 
         private void Awake()
         {
-            _client = SocketClient.CreateClient(ip, port, (s, i) =>
+            _client = SimpleSocketClient.CreateClient(ip, port, (s, i) =>
             {
                 Debug.Log($"连接成功 {s}:{i}");
                 _client.AsyncSend(System.Text.Encoding.UTF8.GetBytes("ok"));
