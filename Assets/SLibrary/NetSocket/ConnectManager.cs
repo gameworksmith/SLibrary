@@ -1,8 +1,8 @@
 using System;
 using SLibrary.NetSocket.Message;
 using SLibrary.NetSocket.Others;
-using UnityEngine;
 #if UNITY
+using UnityEngine;
 
 #endif
 
@@ -96,7 +96,9 @@ namespace SLibrary.NetSocket {
 
         private void disconnectCallback(RMessage rMsg) {
             mTryConnectState = TryConnectState.Disconnected;
-            Debug.Log($"与服务器[" + mServerIP + "]的连接已经断开.");
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"与服务器[" + mServerIP + "]的连接已经断开.");
+#endif
         }
 
         public void setConnectToNotStart() {

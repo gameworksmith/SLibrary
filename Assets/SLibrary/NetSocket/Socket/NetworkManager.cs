@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using SLibrary.NetSocket.Codec;
 using SLibrary.NetSocket.Message;
 using SLibrary.NetSocket.Others;
+using UnityEngine;
 
 namespace SLibrary.NetSocket {
     public class NetworkManager {
@@ -210,8 +211,9 @@ namespace SLibrary.NetSocket {
                         }
 
                         int tmp = mByteBuffer.ReadInt32();
-                        int bufLen = (tmp & 0x7FFFFF);
-                        bool isZip = (((tmp >> 24) & 0xFFFFFFFF) == 1);
+                        Debug.Log($"数据长度 {tmp}");
+                        int bufLen = tmp;
+                        bool isZip = false;
                         //TODO 关于数据包的大小限制可能存在歧义
                         if (bufLen > mByteBuffer.MaxSize() || bufLen <= 0) {
                             InnerMsg(EventId.Net_Error, "接收数据长度超过限制: " + bufLen + ",MaxSize" + mByteBuffer.MaxSize());
