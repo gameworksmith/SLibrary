@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Threading;
-using SLibrary.Socket.Queue;
+using SLibrary.NetSocket.Extensions;
+using SLibrary.NetSocket.Message;
+using SLibrary.NetSocket.Queue;
 
-
-namespace SLibrary.Socket
+namespace SLibrary.NetSocket
 {
 /*
 * 跨线程Socket消息处理队列

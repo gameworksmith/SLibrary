@@ -1,9 +1,12 @@
 using System;
-#if UNITY
+using SLibrary.NetSocket.Message;
+using SLibrary.NetSocket.Others;
 using UnityEngine;
+#if UNITY
+
 #endif
 
-namespace SLibrary.Socket {
+namespace SLibrary.NetSocket {
     public enum TryConnectState {
         NotStart,
         Connecting,

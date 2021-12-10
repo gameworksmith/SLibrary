@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using ZXing;
 
-namespace QRCode
+namespace SLibrary.ThirdUtil.QR
 {
     public static class QRCodeUtil
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SLibrary.Socket.Queue
+namespace SLibrary.NetSocket.Queue
 {
     /**
  * 同步阻塞队列

@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 
-namespace SlibraryEditor 
+namespace SLibrary.Editor 
 {
     public class ConvertLowPolyMesh
     {

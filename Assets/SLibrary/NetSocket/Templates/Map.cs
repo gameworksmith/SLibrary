@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SLibrary.Socket
+namespace SLibrary.NetSocket.Templates
 {
 
     /// <summary>

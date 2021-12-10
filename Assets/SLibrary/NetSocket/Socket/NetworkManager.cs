@@ -2,9 +2,11 @@
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.InteropServices;
-using Network;
+using SLibrary.NetSocket.Codec;
+using SLibrary.NetSocket.Message;
+using SLibrary.NetSocket.Others;
 
-namespace SLibrary.Socket {
+namespace SLibrary.NetSocket {
     public class NetworkManager {
         private static NetworkManager _instance;
 

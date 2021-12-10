@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SLibrary.Socket {
+namespace SLibrary.NetSocket {
     public class IntComparer: IEqualityComparer<int> {
         public bool Equals(int x, int y) {
             return x == y;

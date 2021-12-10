@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AliyunOSS.Scripts
+namespace SLibrary.ThirdUtil.AliyunOSS.Scripts
 {
     public class HashHelper
     {

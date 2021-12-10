@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
+using SLibrary.NetSocket.Codec;
 
-namespace Network
+namespace SLibrary.NetSocket
 {
     public class ByteBuffer
     {

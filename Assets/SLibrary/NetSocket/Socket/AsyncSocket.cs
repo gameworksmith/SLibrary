@@ -3,21 +3,21 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using SLibrary.Socket;
+using SLibrary.NetSocket.Others;
 
-/*
+namespace SLibrary.NetSocket
+{
+    /*
  * 需要连接的服务器类型
  */
-public enum ServerType
-{
-    GameServer = 0
+    public enum ServerType
+    {
+        GameServer = 0
 
-    //如需新增服务器类型,务必在对应逻辑中添加相关的特殊逻辑处理.
-}
+        //如需新增服务器类型,务必在对应逻辑中添加相关的特殊逻辑处理.
+    }
 
 
-namespace SLibrary.Socket
-{
     /**
  * 
  */
