@@ -74,6 +74,14 @@ namespace SLibrary.Network
             return System.Net.IPAddress.HostToNetworkOrder(value);
         }
 
+        public bool Connected
+        {
+            get
+            {
+                return _client.IsConnected();
+            }
+        }
+
         public int GetQueueCount()
         {
             lock (_lock)
@@ -206,6 +214,10 @@ namespace SLibrary.Network
         public void Stop()
         {
             _client.Stop();
+            _ms.Dispose();
+            _ms = new MemoryStream();
+            _waitReadLength = 0;
+            _readingContent = null;
         }
     }
 }

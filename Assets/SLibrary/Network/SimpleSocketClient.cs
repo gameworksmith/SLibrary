@@ -66,7 +66,7 @@ namespace SLibrary.Network
 
         private void OnAsyncReceive(IAsyncResult ar)
         {
-            Debug.Log($"接收数据，连接状态{IsConnected()}");
+            // Debug.Log($"接收数据，连接状态{IsConnected()}");
             if (_socket == null)
             {
                 return;
@@ -83,7 +83,7 @@ namespace SLibrary.Network
                 int length = _socket.EndReceive(ar);
                 if (!ar.IsCompleted) return;
                 _onReceive?.Invoke(_buffer, length);
-                Debug.Log($"接收数据，是否完成{_socket} 当前可用数据长度{length} {_socket.Available} ");
+                // Debug.Log($"接收数据，是否完成{_socket} 当前可用数据长度{length} {_socket.Available} ");
                 _socket.BeginReceive(_buffer, 0, BUFFER_SIZE, SocketFlags.None, OnAsyncReceive, _state);
             }
         }
@@ -94,6 +94,11 @@ namespace SLibrary.Network
             {
                 _socket.Disconnect(false);
                 _socket.Dispose();
+                for (int i = 0; i < _buffer.Length; i++)
+                {
+                    _buffer[i] = 0;
+
+                }
                 Debug.Log("成功停止");
             }
             else
@@ -112,7 +117,7 @@ namespace SLibrary.Network
                 {
                     //完成发送消息  
                     int length = _socket.EndSend(asyncResult);
-                    Debug.Log($"客户端发送消息:{data}, 长度{length}");
+                    // Debug.Log($"客户端发送消息:{data}, 长度{length}");
                 }, null);
             }
             catch (Exception ex)
