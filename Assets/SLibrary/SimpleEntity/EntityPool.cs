@@ -120,6 +120,7 @@ namespace SLibrary.SimpleEntity {
         public void UnRegisterAll () {
             for (int i = 0; i < _entities.Count; i++) {
                 _entities[i].Destroy();
+                _entities[i].UnRegister();
             }
             _entities.Clear();
         }

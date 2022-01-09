@@ -10,17 +10,17 @@ namespace SLibrary.SimpleEntity
         /// 公用方法
         /// </summary>
         private List<EntityParam> _params = new List<EntityParam>();
+
         public void Clear()
         {
             foreach (var entityParam in _params)
             {
                 entityParam.Release();
             }
+
             _params.Clear();
         }
-        
-        
-        
+
 
         public EntityParam GetParam()
         {
@@ -37,24 +37,25 @@ namespace SLibrary.SimpleEntity
             _params.Add(entityParam);
             return entityParam;
         }
-  
     }
+
     // 简单对象池获取参数类
     // 为参数基类
     public class EntityParam
     {
-
         private bool _using = false;
-        
+
         private Dictionary<string, long> _longs = new Dictionary<string, long>();
         private Dictionary<string, Enum> _enums = new Dictionary<string, Enum>();
         private Dictionary<string, float> _floats = new Dictionary<string, float>();
         private Dictionary<string, string> _strs = new Dictionary<string, string>();
         private Dictionary<string, int> _bools = new Dictionary<string, int>();
+
         private Dictionary<string, Color> _colors = new Dictionary<string, Color>();
+
         //这就包含了vector2和vector3
         private Dictionary<string, Vector4> _vectors = new Dictionary<string, Vector4>();
-        
+
         private Dictionary<string, object> _objs = new Dictionary<string, object>();
 
         public bool IsUsing
@@ -62,6 +63,7 @@ namespace SLibrary.SimpleEntity
             get => _using;
             set => _using = value;
         }
+
         public long GetLong(string key)
         {
             return _longs.TryGetValue(key, out var result) ? result : 0;
@@ -69,7 +71,6 @@ namespace SLibrary.SimpleEntity
 
         public string GetString(string key)
         {
-            
             return _strs.TryGetValue(key, out var result) ? result : "";
         }
 
@@ -80,7 +81,6 @@ namespace SLibrary.SimpleEntity
 
         public Enum GetEnum(string key)
         {
-            
             return _enums.TryGetValue(key, out var result) ? result : default;
         }
 
@@ -98,13 +98,13 @@ namespace SLibrary.SimpleEntity
 
             return false;
         }
-        
+
         public Color GetColor(string key)
         {
             return _colors.TryGetValue(key, out var result) ? result : default;
         }
-        
-        
+
+
         public Vector4 GetVector(string key)
         {
             return _vectors.TryGetValue(key, out var result) ? result : default;
@@ -140,7 +140,14 @@ namespace SLibrary.SimpleEntity
         {
             try
             {
-                _longs.Add(key, value);
+                if (_longs.ContainsKey(key))
+                {
+                    _longs[key] = value;
+                }
+                else
+                {
+                    _longs.Add(key, value);
+                }
             }
             catch (Exception e)
             {
@@ -152,77 +159,130 @@ namespace SLibrary.SimpleEntity
         {
             try
             {
-                _floats.Add(key, value);
+                if (_floats.ContainsKey(key))
+                {
+                    _floats[key] = value;
+                }
+                else
+                {
+                    _floats.Add(key, value);
+                }
             }
             catch (Exception e)
             {
                 Debug.Log($"添加失败 {e}");
             }
         }
-        
+
         public void Add(string key, string value)
         {
             try
             {
-                _strs.Add(key, value);
+                if (_strs.ContainsKey(key))
+                {
+                    _strs[key] = value;
+                }
+                else
+                {
+                    _strs.Add(key, value);
+                }
             }
             catch (Exception e)
             {
                 Debug.Log($"添加失败 {e}");
             }
         }
+
         public void Add(string key, Color value)
         {
             try
             {
-                _colors.Add(key, value);
+                if (_colors.ContainsKey(key))
+                {
+                    _colors[key] = value;
+                }
+                else
+                {
+                    _colors.Add(key, value);
+                }
             }
             catch (Exception e)
             {
                 Debug.Log($"添加失败 {e}");
             }
         }
-        
+
         // 布尔因为unity的特性不能存，所以用int来表示
         // addBool要单独一个api的原因是UnityEngine.Object会被自动转换为bool，坑死了
         public void AddBool(string key, bool value)
         {
             try
             {
-                _bools.Add(key, value ? 1: -1);
+                if (_bools.ContainsKey(key))
+                {
+                    _bools[key] = value ? 1 : -1;
+                }
+                else
+                {
+                    _bools.Add(key, value ? 1 : -1);
+                }
             }
             catch (Exception e)
             {
                 Debug.Log($"添加失败 {e}");
             }
         }
+
         public void Add(string key, Enum eu)
         {
             try
             {
-                _enums.Add(key, eu);
+                if (_enums.ContainsKey(key))
+                {
+                    _enums[key] = eu;
+                }
+                else
+                {
+                    _enums.Add(key, eu);
+                }
             }
             catch (Exception e)
             {
                 Debug.Log($"添加失败 {e}");
-            } 
+            }
         }
+
         public void Add(string key, Vector4 value)
         {
             try
             {
-                _vectors.Add(key, value);
+                if (_vectors.ContainsKey(key))
+                {
+                    _vectors[key] = value;
+                }
+                else
+                {
+                    _vectors.Add(key, value);
+                }
             }
             catch (Exception e)
             {
                 Debug.Log($"添加失败 {e}");
             }
         }
+
         public void Add(string key, object value)
         {
             try
             {
-                _objs.Add(key, value);
+                if (_objs.ContainsKey(key))
+                {
+                    _objs[key] = value;
+                }
+                else
+                {
+                    _objs.Add(key, value);
+                }
             }
             catch (Exception e)
             {
@@ -232,10 +292,6 @@ namespace SLibrary.SimpleEntity
 
         #region 静态方法，用于外部调用
 
-
-
         #endregion
-       
-        
     }
 }
