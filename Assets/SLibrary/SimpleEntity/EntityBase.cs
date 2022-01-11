@@ -45,7 +45,6 @@ namespace SLibrary.SimpleEntity {
         /// </summary>
         public void UnRegister () {
             _receiveActions.Clear();
-            PoolInstance?.UnRegister(this);
             GameLoop.RemoveListener(OnUpdate);
             GameLoop.RemoveLateListener(OnLateUpdate);
             OnRemove();
