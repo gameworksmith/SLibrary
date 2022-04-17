@@ -18,6 +18,8 @@ namespace SLibrary.LightFsm
         public int CurrentState { get; private set; }
         private System.Action<float> beforeUpdateCallback;
         private System.Action<float> afterUpdateCallback;
+        
+        private List<ValueTuple<int, int, int>> _transitions = new List<(int, int, int)>();
 
         public bool AddState(int state, Action<int> onEnter, Action<int> onExit, Action<float> onUpdate)
         {
@@ -28,6 +30,30 @@ namespace SLibrary.LightFsm
 
             _actions.Add(state, new Tuple<Action<int>, Action<int>, Action<float>>(onEnter, onExit, onUpdate));
             return true;
+        }
+
+        public bool AddTransition(int from, int to, int triggerCode)
+        {
+            if (!_actions.ContainsKey(from) || !_actions.ContainsKey(to))
+            {
+                return false;
+            }
+            _transitions.Add(item:  (from, to, triggerCode));
+            return true;
+        }
+
+        public bool TriggerEvent(int eventCode)
+        {
+            foreach ((int, int, int) transition in _transitions)
+            {
+                if (transition.Item1 == CurrentState && transition.Item3 == eventCode)
+                {
+                    SwitchToState(transition.Item2);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool RemoveState(int state)
