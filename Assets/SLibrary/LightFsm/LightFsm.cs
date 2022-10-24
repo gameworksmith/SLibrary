@@ -18,8 +18,9 @@ namespace SLibrary.LightFsm
         public int CurrentState { get; private set; }
         private System.Action<float> beforeUpdateCallback;
         private System.Action<float> afterUpdateCallback;
-        
-        private List<ValueTuple<int, int, int>> _transitions = new List<(int, int, int)>();
+
+        private List<(int currentState, int nextState, int eventCode)> _transitions =
+            new List<(int currentState, int nextState, int eventCode)>();
 
         public bool AddState(int state, Action<int> onEnter, Action<int> onExit, Action<float> onUpdate)
         {
@@ -44,11 +45,11 @@ namespace SLibrary.LightFsm
 
         public bool TriggerEvent(int eventCode)
         {
-            foreach ((int, int, int) transition in _transitions)
+            foreach (var transition in _transitions)
             {
-                if (transition.Item1 == CurrentState && transition.Item3 == eventCode)
+                if (transition.currentState == CurrentState && transition.eventCode == eventCode)
                 {
-                    SwitchToState(transition.Item2);
+                    SwitchToState(transition.nextState);
                     return true;
                 }
             }
