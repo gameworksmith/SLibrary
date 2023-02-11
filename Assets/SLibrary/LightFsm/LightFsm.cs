@@ -3,8 +3,36 @@ using System.Collections.Generic;
 
 namespace SLibrary.LightFsm
 {
+    public interface IFsm
+    {
+        int CurrentState { get; }
+        bool AddState(int state, System.Action<int> onEnter, System.Action<int> onExit, System.Action<float, float> onUpdate);
+        bool RemoveState(int state);
+    
+        void Update(float time);
+
+        bool AddTransition(int from, int to, int triggerCode);
+        bool TriggerEvent(int eventCode);
+        bool SwitchToState(int stateId, bool forceSwitch);
+    }
+    
+    
     public class LightFsm : IFsm
     {
+        public class StateInfo
+        {
+            public float TimeElapsed;
+            public System.Action<int> OnEnter;
+            public System.Action<int> OnExit;
+            public System.Action<float, float> OnUpdate;
+
+            public StateInfo(Action<int> onEnter, Action<int> onExit, Action<float, float> onUpdate)
+            {
+                OnEnter = onEnter;
+                OnExit = onExit;
+                OnUpdate = onUpdate;
+            }
+        }
         public LightFsm(int defaultState = -1, System.Action<float> beforeUpdate = null, System.Action<float> afterUpdate = null)
         {
             CurrentState = defaultState;
@@ -12,8 +40,8 @@ namespace SLibrary.LightFsm
             afterUpdateCallback = afterUpdate;
         }
 
-        private readonly Dictionary<int, Tuple<System.Action<int>, System.Action<int>, System.Action<float>>> _actions =
-            new Dictionary<int, Tuple<Action<int>, Action<int>, Action<float>>>();
+        private readonly Dictionary<int, StateInfo> _states =
+            new Dictionary<int, StateInfo>();
 
         public int CurrentState { get; private set; }
         private System.Action<float> beforeUpdateCallback;
@@ -22,24 +50,39 @@ namespace SLibrary.LightFsm
         private List<(int currentState, int nextState, int eventCode)> _transitions =
             new List<(int currentState, int nextState, int eventCode)>();
 
-        public bool AddState(int state, Action<int> onEnter, Action<int> onExit, Action<float> onUpdate)
+        public bool AddState(int state, Action<int> onEnter, Action<int> onExit, Action<float, float> onUpdate)
         {
-            if (_actions.ContainsKey(state))
+            if (_states.ContainsKey(state))
             {
                 throw new Exception($"不能重复添加状态{state}行为");
             }
 
-            _actions.Add(state, new Tuple<Action<int>, Action<int>, Action<float>>(onEnter, onExit, onUpdate));
+            _states.Add(state, new StateInfo(onEnter, onExit, onUpdate));
             return true;
         }
 
         public bool AddTransition(int from, int to, int triggerCode)
         {
-            if (!_actions.ContainsKey(from) || !_actions.ContainsKey(to))
+            if (!_states.ContainsKey(from) || !_states.ContainsKey(to))
             {
                 return false;
             }
             _transitions.Add(item:  (from, to, triggerCode));
+            return true;
+        }
+        
+        public bool AddAnyToTransition(int to, int triggerCode)
+        {
+            if (!_states.ContainsKey(to))
+            {
+                return false;
+            }
+
+            foreach (int key in _states.Keys)
+            {
+                _transitions.Add(item:  (key, to, triggerCode));
+            }
+
             return true;
         }
 
@@ -59,12 +102,12 @@ namespace SLibrary.LightFsm
 
         public bool RemoveState(int state)
         {
-            if (_actions.ContainsKey(state))
+            if (_states.ContainsKey(state))
             {
                 return false;
             }
 
-            _actions.Remove(state);
+            _states.Remove(state);
             return true;
         }
 
@@ -77,7 +120,7 @@ namespace SLibrary.LightFsm
         /// <returns></returns>
         public bool SwitchToState(int stateId, bool forceSwitch = false)
         {
-            bool hasState = _actions.ContainsKey(stateId);
+            bool hasState = _states.ContainsKey(stateId);
             if (!hasState) return false;
 
             bool stateChanged = stateId != CurrentState;
@@ -88,17 +131,18 @@ namespace SLibrary.LightFsm
 
             if (stateChanged)
             {
-                if (_actions.TryGetValue(CurrentState, out var oldActions))
+                if (_states.TryGetValue(CurrentState, out var oldActions))
                 {
-                    oldActions.Item2?.Invoke(stateId);
+                    oldActions.OnExit?.Invoke(stateId);
                 }
             }
 
             var oldStateId = CurrentState;
-            var newActions = _actions[stateId];
+            var newActions = _states[stateId];
 
             CurrentState = stateId;
-            newActions.Item1?.Invoke(oldStateId);
+            newActions.TimeElapsed = 0;
+            newActions.OnEnter?.Invoke(oldStateId);
             return true;
         }
 
@@ -108,10 +152,11 @@ namespace SLibrary.LightFsm
         /// <param name="time"></param>
         public void Update(float time)
         {
-            if (_actions.TryGetValue(CurrentState, out var actions))
+            if (_states.TryGetValue(CurrentState, out var actions))
             {
                 beforeUpdateCallback?.Invoke(time);
-                actions.Item3?.Invoke(time);
+                actions.TimeElapsed += time;
+                actions.OnUpdate?.Invoke(time, actions.TimeElapsed);
                 afterUpdateCallback?.Invoke(time);
             }
         }
